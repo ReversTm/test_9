@@ -1,89 +1,147 @@
-<script>
-  $(function(){
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Simple Multiple Choice Quiz with JavaScript</title>
   
-    var pathToPolls = 'polls.php';
-    
-    var vote = {};
-    $.get(pathToPolls, function(data) {
+  <style>
+		@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
+
+		*, *:before, *:after {margin: 0; padding: 0; box-sizing: border-box;}
+		body {background: #2F2556; color: #B9B5C7; font: 14px 'Open Sans', sans-serif;}
+
+		.top { padding-right: 20px; background: #261F41; text-align: right; }
+		a { color: rgba(255,255,255,0.6); text-transform: uppercase; text-decoration: none; line-height: 42px; }
+
+		h1 {padding: 50px 0; font-weight: 400; text-align: center;}
+		
+		.main {margin: 0 auto; max-width: 500px;}
+		.main .quizsection {margin-bottom: 20px;}
+ </style>
+ 
+</head>
+
+<body>
+
+<h1>JavaScript Quiz</h1>
+
+<section class="main">
+
+<form name="quiz" action="javascript:check();" class="quizform">
+
+<div class="quizsection">
+
+
+	<h2>Вопрос #1</h2>
+	
+	<div class="answer">
+		<input name="q1" value="value2" id="value1" type="radio" checked="checked" /> Value 1
+	</div>
+
+	<div class="answer">
+		<input name="q1" value="value1" id="value2" type="radio" /> Value 2
+	</div>
+
+	<div class="answer">
+		<input name="q1" value="value1" id="value3" type="radio" /> Value 3
+	</div>
+
+	<div class="answer">
+		<input name="q1" value="value1" id="value4" type="radio" /> Value 4
+	</div>
+
+</div>
+
+
+
+<input value="Submit" type="submit" /> <input value="Reset" type="reset" />
+
+</form>
+
+</section>
+
+<script type="text/javascript">// <![CDATA[
+
+   var result;
+   
+   function check()
+
+   {
+
+      var question;
+      var value1;
+      var value2;
       
-      var data = JSON.parse(data);
-      vote['id']=data['id'];
-      vote['question']=data['question'];
-      vote['answers']=data['answers'];
-
-      if (data.hasOwnProperty('result')) {
-        $('#vote').parent().parent().find('.question').text(vote['question']);
-        var _answers = vote['answers'];
-        var output = '';
-        var result = data['result'];
-        var totalvotes = 0;
-        for (var i=0; i <= result.length-1; i++) {
-          totalvotes += result[i];
-        }
-        for (var i=0; i <= result.length-1; i++) {
-          output += '<p style="margin:0px;">'+_answers[i]+'</p>'+
-            '<p class="text-right" style="margin:0px;"><b>'+((result[i]/totalvotes)*100).toFixed(1)+'%</b> (Голосов: '+result[i]+')</p>'+
-            '<div class="progress">'+
-              '<div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="'+(result[i]/totalvotes)*100+'" aria-valuemin="0" aria-valuemax="100" style="width: '+(result[i]/totalvotes)*100+'%">'+
-                '<span class="sr-only">'+(result[i]/totalvotes)*100+'%</span>'+
-              '</div>'+
-            '</div>';
-        }
-        $('#vote-section').html(output);
-      } else {          
-        processPoll();
-      }
-    });    
-
-    var processPoll = function() {        
-      var _id = vote['id'];
-      var _answers = vote['answers'];
-      var form = $('#vote');
-      form.parent().parent().find('.question').text(vote['question']);
-      form.prepend('<input type="hidden" name="count" value="'+vote['answers'].length+'">');
-      form.prepend('<input type="hidden" name="id" value="'+vote['id']+'">');
-      var answers = form.find('.answers');
-      for (var i=0; i<=vote['answers'].length-1;i++) {
-        answers.append('<div class="radio">'+
-            '<label>'+
-              '<input type="radio" name="poll" value="'+(i+1)+'">'+
-              vote['answers'][i]+
-            '</label>'+
-          '</div>');
-      }
-      if (form.find('button[type="submit"]:disabled')) { 
-        form.find('input[type="radio"]').click(function(){
-          form.find('button[type="submit"]').prop('disabled',false);
-          form.find('input[type="radio"]').off('click');  
-        });          
-      };
       
-      form.submit(function(e) {
-        //отмена действия по умолчанию для кнопки submit
-        e.preventDefault();
-        $.post(form.attr('action'), form.serializeArray(), function(data) {
-          if (data) {
-            var data = JSON.parse(data);
-            var output = '';
-            var result = data[_id];
-            var totalvotes = 0;
-            for (var i=0; i <= result.length-1; i++) {
-              totalvotes += result[i];
-            }
-            for (var i=0; i <= result.length-1; i++) {
-              output += '<p style="margin:0px;">'+_answers[i]+'</p>'+
-                '<p class="text-right" style="margin:0px;"><b>'+((result[i]/totalvotes)*100).toFixed(1)+'%</b> (Голосов: '+result[i]+')</p>'+
-                '<div class="progress">'+
-                  '<div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="'+(result[i]/totalvotes)*100+'" aria-valuemin="0" aria-valuemax="100" style="width: '+(result[i]/totalvotes)*100+'%">'+
-                    '<span class="sr-only">'+(result[i]/totalvotes)*100+'%</span>'+
-                  '</div>'+
-                '</div>';
-            }
-            $('#vote-section').html(output);
-          }
-        }); 
-      });
-    };
+      question = 1;
+      value1 = 0;
+      value2 = 0;
+      
+      
+      result = "";
 
-  });
-</script>
+      var choice;
+      
+      for (question = 1; question <= 3; question++) {
+      
+         var q = document.forms['quiz'].elements['q'+question];
+
+            for (var i = 0; i < q.length; i++) {
+               if (q[i].checked) {
+                  choice = q[i].value;
+               }
+            }
+
+            if (choice == "value1") {
+               value1++;
+            }
+
+            if (choice == "value2") {
+               value2++;
+            }
+
+
+         }
+
+      if (value2 == 0) {
+
+         // Нет правильных ответов
+         result = "ocenka2";
+
+      }
+
+      else if (value2 == 1) {
+
+         // Один правильный ответ
+         result = "ocenka3";
+
+      }
+
+      else if (value2 == 2) {
+
+         // Два правильных ответа
+         result = "ocenka4";
+
+      }
+
+      else if (value2 == 3) {
+
+         // Три правильных ответа
+         result = "ocenka5";
+
+      }
+
+
+      else {
+         result = "404";
+      }
+
+      window.location = result + '.html';
+
+   }
+
+// ]]></script>
+
+</body>
+</html>
