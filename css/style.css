@@ -1,6 +1,6 @@
 body {
-    background-color: rgb(117, 222, 145);
-    color: rgb(31, 135, 17);
+    background-color: rgb(54, 67, 214);
+    color: rgb(21, 156, 19);
     font-style: italic;
     font-size: 20px;
     }
@@ -26,7 +26,7 @@ body {
     display: none;
 }
 #btn1{
-    background-color: -internal-light-dark(rgb(239, 239, 239), rgb(97, 96, 107));
+    background-color: -internal-light-dark(rgb(32, 57, 12), rgb(325, 78, 105));
 }
 .opend{
     background-color: rgb(111, 223, 146);
