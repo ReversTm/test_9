@@ -1,147 +1,29 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <title>Simple Multiple Choice Quiz with JavaScript</title>
-  
-  <style>
-		@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
-
-		*, *:before, *:after {margin: 0; padding: 0; box-sizing: border-box;}
-		body {background: #2F2556; color: #B9B5C7; font: 14px 'Open Sans', sans-serif;}
-
-		.top { padding-right: 20px; background: #261F41; text-align: right; }
-		a { color: rgba(255,255,255,0.6); text-transform: uppercase; text-decoration: none; line-height: 42px; }
-
-		h1 {padding: 50px 0; font-weight: 400; text-align: center;}
-		
-		.main {margin: 0 auto; max-width: 500px;}
-		.main .quizsection {margin-bottom: 20px;}
- </style>
- 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
+    <div class="wrapper">
+        <h2>День сонцестояння</h2>
+        <p>В який день буває сонцестояння?</p>
+        <p><input type="radio" name="year" id="y1">22 грудня</p>
+        <p><input type="radio" name="year" id="y2">21 березня</p>
+        <p><input type="radio" name="year" id="y3">23 вересня</p>
+        <p><input type="radio" name="year" id="y4">21 серпня</p>
 
-<h1>JavaScript Quiz</h1>
+        <button id = "btn">Дати відповідь</button>
+        <p class="right hidden" id="right">Правильна відповідь</p>
+        <div class="wrong_div hidden" id="wrong_div">
+            <p class="wrong" id="wrong">Неправильна відповідь</p>
+            <button id = "btn1">Подивитися підказку</button>
+        </div>
 
-<section class="main">
-
-<form name="quiz" action="javascript:check();" class="quizform">
-
-<div class="quizsection">
-
-
-	<h2>Вопрос #1</h2>
-	
-	<div class="answer">
-		<input name="q1" value="value2" id="value1" type="radio" checked="checked" /> Value 1
-	</div>
-
-	<div class="answer">
-		<input name="q1" value="value1" id="value2" type="radio" /> Value 2
-	</div>
-
-	<div class="answer">
-		<input name="q1" value="value1" id="value3" type="radio" /> Value 3
-	</div>
-
-	<div class="answer">
-		<input name="q1" value="value1" id="value4" type="radio" /> Value 4
-	</div>
-
-</div>
-
-
-
-<input value="Submit" type="submit" /> <input value="Reset" type="reset" />
-
-</form>
-
-</section>
-
-<script type="text/javascript">// <![CDATA[
-
-   var result;
-   
-   function check()
-
-   {
-
-      var question;
-      var value1;
-      var value2;
-      
-      
-      question = 1;
-      value1 = 0;
-      value2 = 0;
-      
-      
-      result = "";
-
-      var choice;
-      
-      for (question = 1; question <= 3; question++) {
-      
-         var q = document.forms['quiz'].elements['q'+question];
-
-            for (var i = 0; i < q.length; i++) {
-               if (q[i].checked) {
-                  choice = q[i].value;
-               }
-            }
-
-            if (choice == "value1") {
-               value1++;
-            }
-
-            if (choice == "value2") {
-               value2++;
-            }
-
-
-         }
-
-      if (value2 == 0) {
-
-         // Нет правильных ответов
-         result = "ocenka2";
-
-      }
-
-      else if (value2 == 1) {
-
-         // Один правильный ответ
-         result = "ocenka3";
-
-      }
-
-      else if (value2 == 2) {
-
-         // Два правильных ответа
-         result = "ocenka4";
-
-      }
-
-      else if (value2 == 3) {
-
-         // Три правильных ответа
-         result = "ocenka5";
-
-      }
-
-
-      else {
-         result = "404";
-      }
-
-      window.location = result + '.html';
-
-   }
-
-// ]]></script>
-
+        <p id="answer" class = "hidden">Сонцестояння буває літнім та зимовим</p>
+    </div>
+    <script src="js/js.js"></script>
 </body>
 </html>
